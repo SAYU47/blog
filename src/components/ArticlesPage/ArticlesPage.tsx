@@ -10,6 +10,7 @@ import PaginationList from '../UI/Pagination/Pagination'
 
 interface ArcticlePage {
   state: RootState
+  // eslint-disable-next-line prettier/prettier
   switchPage: (offset: number) => void
 }
 

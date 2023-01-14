@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { FC, useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { connect } from 'react-redux'
@@ -33,7 +34,6 @@ const MarkdownPage: FC<Markdown> = ({ getSinglepage, state, slug }) => {
       )
     }
   })
-  console.log(item)
 
   const formatedDate = format(new Date(item.updatedAt), 'MMM d,yyyy')
   const defaultImg = '../../assets/img/Standart.svg'
@@ -45,7 +45,10 @@ const MarkdownPage: FC<Markdown> = ({ getSinglepage, state, slug }) => {
           <p>{item.author.username}</p>
           <p className={style.autor_info_date}>{formatedDate}</p>
         </div>
-        <img src={ErrorImg ? defaultImg : item.author.image} onError={() => setErrorImg(true)} />
+        <img
+          src={ErrorImg ? defaultImg : item.author.image}
+          onError={() => setErrorImg(true)}
+        />
       </div>
       <h2 className={style.title}>{item.title}</h2>
       <div className={style.tag}>{tags}</div>

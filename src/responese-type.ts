@@ -6,6 +6,7 @@ export type State = {
 
 export type ArticleList = {
   slug: string
+  // eslint-disable-next-line prettier/prettier
   title: string
   description: string
   body: string

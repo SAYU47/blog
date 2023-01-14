@@ -9,7 +9,10 @@ const initialState: ArticleState = {
   totalPages: 0,
 }
 
-const getArticleReduser = (state = initialState, action: GetCombinateTypes): ArticleState => {
+const getArticleReduser = (
+  state = initialState,
+  action: GetCombinateTypes
+): ArticleState => {
   switch (action.type) {
     case GetActionTypes.SUCCESS_LOAD: {
       return {

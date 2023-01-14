@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ArticleList, dasd } from '../responese-type'
+import { ArticleList } from '../responese-type'
 
 export interface ArticleState {
   articleList: ArticleList[]
+  // eslint-disable-next-line prettier/prettier
   markdownPage: any
   errors: unknown
   loading: boolean
@@ -36,4 +37,8 @@ interface ArticlePagination {
   offset: number
   payload: ArticleList[]
 }
-export type GetCombinateTypes = getArticleLoadSucces | getArticleLoadError | ArticlePagination | getSinglepage
+export type GetCombinateTypes =
+  | getArticleLoadSucces
+  | getArticleLoadError
+  | ArticlePagination
+  | getSinglepage

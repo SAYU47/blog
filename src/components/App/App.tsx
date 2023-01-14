@@ -16,7 +16,6 @@ function App() {
           path="/articles/:slug"
           render={({ match }) => {
             const { slug } = match.params
-            console.log(slug)
             return <MarkdownPage slug={slug} />
           }}
         />

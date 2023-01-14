@@ -8,7 +8,7 @@ import { GetActionTypes } from '../../../redux/actions-type'
 import './Pagination.scss'
 
 interface PaginationType {
-  totalItems: number
+  totalItems: number;
 }
 // s
 const PaginationList: FC<PaginationType> = ({ totalItems }) => {
@@ -20,7 +20,12 @@ const PaginationList: FC<PaginationType> = ({ totalItems }) => {
   }
   return (
     <>
-      <Pagination showSizeChanger={false} current={current} total={totalItems} onChange={onChange} />
+      <Pagination
+        showSizeChanger={false}
+        current={current}
+        total={totalItems}
+        onChange={onChange}
+      />
     </>
   )
 }
