@@ -1,0 +1,19 @@
+.header_container {
+  height: 80px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  a {
+    margin-left: 22px;
+  }
+  .buttons_wrapper {
+    margin-right: 13px;
+    & a:last-child {
+      color: #52c41a;
+      border: 1px solid #52c41a;
+      border-radius: 5px;
+      padding: 8px;
+    }
+  }
+}

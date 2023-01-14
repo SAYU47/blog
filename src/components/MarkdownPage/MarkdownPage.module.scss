@@ -1,0 +1,82 @@
+// .title {
+//   color: #1890ff;
+// }
+.wrapper {
+  // display: flex;
+  justify-content: space-between;
+  width: 941px;
+  min-height: 807px;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 5px;
+  margin: 0 auto;
+  margin-top: 26px;
+  padding: 15px 15px 15px 19px;
+  box-sizing: border-box;
+  box-shadow: (0px 4px 12px rgba(0, 0, 0, 0.15));
+  margin-bottom: 61px;
+  position: relative;
+  h2 {
+    color: #1890ff;
+    font-size: 20px;
+  }
+  a {
+    color: #1890ff;
+  }
+}
+.article_text {
+  font-size: 12px;
+  line-height: 22px;
+  width: 682px;
+  overflow-wrap: anywhere;
+  overflow: hidden;
+  max-height: 70px;
+  margin-top: 10px;
+}
+.card_tag {
+  width: 40px;
+  display: block;
+  overflow-wrap: break-word;
+  font-size: 12px;
+  line-height: 15px;
+  display: inline;
+  padding: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+  margin-right: 5px;
+}
+.autor_info {
+  position: absolute;
+  right: 14px;
+  display: flex;
+  gap: 12px;
+  img {
+    display: block;
+    width: 46px;
+    height: 46px;
+  }
+}
+.autor_info_container {
+  :first-child {
+    font-size: 18px;
+    line-height: 28px;
+    justify-content: end;
+  }
+  :last-child {
+    font-size: 12px;
+    line-height: 22px;
+    color: rgba(0, 0, 0, 0.5);
+  }
+}
+.title {
+  margin-bottom: 5px;
+}
+.description {
+  max-width: 700px;
+  margin: 19px 0 25px 0;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 22px;
+
+  color: rgba(0, 0, 0, 0.5);
+}
