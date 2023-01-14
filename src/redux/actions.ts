@@ -25,7 +25,6 @@ export const switchPage = (num: number) => {
     }
   }
 }
-console.log('sdds')
 
 export const getSinglepage = (slug: string) => {
   return async (dispatch: Dispatch<GetCombinateTypes>) => {
