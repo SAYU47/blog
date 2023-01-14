@@ -1,57 +1,41 @@
 {
-  "root": true,
   "env": {
     "browser": true,
     "es2021": true
   },
   "ignorePatterns": ["node_modules", "dist", "build"],
-  "extends": [
-    "airbnb-base",
+  "extends": [ 
+    "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
-    "prettier",
-    // "prettier/@typescript-eslint",
     "plugin:react/recommended",
     "plugin:prettier/recommended",
     "plugin:import/errors",
     "plugin:import/warnings"
+    
   ],
-  "parser": "@typescript-eslint/parser",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
+    "requireConfigFile": false, // <== ADD THIS
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
+   },
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": "latest",
+    "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "react", "prettier", "import"],
+  "plugins": ["react", "prettier", "import", "eslint-plugin-prettier"],
   "rules": {
-    "no-console": "off",
-    "indent": [
-      "error", 
-      2, 
-      { 
-      "SwitchCase": 1,
-      "ignoredNodes": [ "ConditionalExpression"] 
-      }
-    ],
-    "no-unused-vars": 0,
-    "@typescript-eslint/no-unused-vars": 0,
-    
-    "react/jsx-indent-props": ["error", 2],
-    "react/jsx-indent": ["error", 2],
+    "indent": ["error", 2],
     "prettier/prettier": "error",
     "linebreak-style": [0, "unix"],
     "quotes": ["error", "single"],
-    "no-nested-ternary": "off",
-    "multiline-ternary": ["error", "always-multiline"],
     "semi": ["error", "never"],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": 0,
-    "import/extensions": "off",
-    "default-param-last": "off",
     "import/no-unresolved": [2, { "caseSensitive": false }],
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx", "ts"] }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", "ts", "tsx"] }],
     "import/order": [
       2,
       {

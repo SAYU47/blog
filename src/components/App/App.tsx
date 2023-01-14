@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom'
 
 import ArticleHeader from '../ArticleHeader/ArticleHeader'
 import ArticlesPage from '../ArticlesPage/ArticlesPage'
@@ -14,7 +14,7 @@ function App() {
         <Route path="/" exact component={ArticlesPage} />
         <Route
           path="/articles/:slug"
-          render={({ match, location, history }) => {
+          render={({ match }) => {
             const { slug } = match.params
             console.log(slug)
             return <MarkdownPage slug={slug} />
