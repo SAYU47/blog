@@ -1,7 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-
-import ArticlesPage from '../ArticlesPage/ArticlesPage'
 
 import style from './ArticleHeader.module.scss'
 

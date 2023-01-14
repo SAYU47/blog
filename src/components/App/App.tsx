@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 
 import ArticleHeader from '../ArticleHeader/ArticleHeader'

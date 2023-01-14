@@ -37,15 +37,14 @@
     "lint:fix": "eslint ./src/**/*.{ts,tsx} --fix --color",
     "prepare": "husky install"
   },
-  "husky": {
-    "hooks": {
+  "husky":{
+    "hooks":{
       "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "*.(js|jsx)": [
+    "*.js":[
       "npm run lint:fix",
-      "npm run format",
       "git add"
     ]
   },
@@ -53,10 +52,7 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ],
-    "rules": {
-      "@typescript-eslint/no-unused-vars": "error"
-     }
+    ]
   },
   "browserslist": {
     "production": [
@@ -86,9 +82,9 @@
     "eslint-plugin-jest": "^27.2.1",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.31.11",
+    "eslint-plugin-react": "^7.32.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "husky": "^8.0.3",
+    "husky": "^4.3.8",
     "lint-staged": "^13.1.0",
     "prettier": "^2.8.2",
     "sass": "^1.57.1",
