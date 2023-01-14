@@ -10,7 +10,7 @@ import './Pagination.scss'
 interface PaginationType {
   totalItems: number
 }
-
+// s
 const PaginationList: FC<PaginationType> = ({ totalItems }) => {
   const dispatch = useDispatch()
   const [current, setCurrent] = useState(1)
