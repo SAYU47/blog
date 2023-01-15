@@ -37,8 +37,4 @@ interface ArticlePagination {
   offset: number
   payload: ArticleList[]
 }
-export type GetCombinateTypes =
-  | getArticleLoadSucces
-  | getArticleLoadError
-  | ArticlePagination
-  | getSinglepage
+export type GetCombinateTypes = getArticleLoadSucces | getArticleLoadError | ArticlePagination | getSinglepage

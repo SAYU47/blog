@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { FC, useEffect, useState } from 'react'
 import { Pagination } from 'antd'
 import { connect, useDispatch, useSelector } from 'react-redux'
@@ -8,9 +9,8 @@ import { GetActionTypes } from '../../../redux/actions-type'
 import './Pagination.scss'
 
 interface PaginationType {
-  totalItems: number;
+  totalItems: number
 }
-// s
 const PaginationList: FC<PaginationType> = ({ totalItems }) => {
   const dispatch = useDispatch()
   const [current, setCurrent] = useState(1)
@@ -20,12 +20,7 @@ const PaginationList: FC<PaginationType> = ({ totalItems }) => {
   }
   return (
     <>
-      <Pagination
-        showSizeChanger={false}
-        current={current}
-        total={totalItems}
-        onChange={onChange}
-      />
+      <Pagination showSizeChanger={false} current={current} total={totalItems} onChange={onChange} />
     </>
   )
 }

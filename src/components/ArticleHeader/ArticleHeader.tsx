@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import style from './ArticleHeader.module.scss'
 
@@ -7,9 +8,10 @@ const ArticleHeader = () => {
     <>
       <header className={style.header_container}>
         <a href="/">Realworld Blog</a>
+
         <div className={style.buttons_wrapper}>
-          <a href="#">Sign In</a>
-          <a href="#">Sign Up</a>
+          <Link to="sign-in">Sign In</Link>
+          <Link to="sign-up">Sign Up</Link>
         </div>
       </header>
     </>

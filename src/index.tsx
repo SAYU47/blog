@@ -9,10 +9,7 @@ import { Provider } from 'react-redux'
 import { rootReduser } from './redux/root-reduser'
 import App from './components/App/App'
 
-const store = createStore(
-  rootReduser,
-  composeWithDevTools(applyMiddleware(thunk))
-)
+const store = createStore(rootReduser, composeWithDevTools(applyMiddleware(thunk)))
 // eslint-disable-next-line prettier/prettier
 const root = ReactDOM.createRoot(
   // eslint-disable-next-line prettier/prettier

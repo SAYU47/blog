@@ -45,10 +45,7 @@ const MarkdownPage: FC<Markdown> = ({ getSinglepage, state, slug }) => {
           <p>{item.author.username}</p>
           <p className={style.autor_info_date}>{formatedDate}</p>
         </div>
-        <img
-          src={ErrorImg ? defaultImg : item.author.image}
-          onError={() => setErrorImg(true)}
-        />
+        <img src={ErrorImg ? defaultImg : item.author.image} onError={() => setErrorImg(true)} />
       </div>
       <h2 className={style.title}>{item.title}</h2>
       <div className={style.tag}>{tags}</div>

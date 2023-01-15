@@ -27,6 +27,7 @@
     "redux-thunk": "^2.4.2",
     "sass": "^1.57.1",
     "uniqid": "^5.4.0",
+    "uuid": "^9.0.0",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
@@ -35,6 +36,7 @@
     "@babel/preset-env": "^7.20.2",
     "@redux-devtools/core": "^3.13.1",
     "@types/node": "^18.11.17",
+    "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
     "eslint": "^8.29.0",
@@ -68,14 +70,12 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}":[
+    "*.{js,jsx,ts,tsx}": [
       "npm run lint:fix",
       "npm run format",
       "git add ."
-      
     ]
   },
-  
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -94,7 +94,6 @@
       "last 1 safari version"
     ]
   },
-  "description": "Сделано на реакте.",
   "main": "index.js",
   "keywords": [
     "movies",

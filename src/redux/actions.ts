@@ -7,9 +7,7 @@ import { GetActionTypes, GetCombinateTypes } from './actions-type'
 export const switchPage = (num: number) => {
   return async (dispatch: Dispatch<GetCombinateTypes>) => {
     try {
-      const response = await axios.get(
-        `https://blog.kata.academy/api/articles?limit=5&offset=${num}`
-      )
+      const response = await axios.get(`https://blog.kata.academy/api/articles?limit=5&offset=${num}`)
       dispatch({
         type: GetActionTypes.SUCCESS_LOAD,
         payload: response.data.articles,
@@ -28,9 +26,7 @@ export const switchPage = (num: number) => {
 
 export const getSinglepage = (slug: string) => {
   return async (dispatch: Dispatch<GetCombinateTypes>) => {
-    const response = await axios.get(
-      `https://blog.kata.academy/api/articles/${slug}`
-    )
+    const response = await axios.get(`https://blog.kata.academy/api/articles/${slug}`)
     dispatch({
       type: GetActionTypes.GET_SINGLEPAGE,
       payload: response.data.article,

@@ -1,5 +1,6 @@
-import React, { FC, useEffect, useMemo } from 'react'
-import { connect, useDispatch } from 'react-redux'
+/* eslint-disable prettier/prettier */
+import React, { FC, useEffect } from 'react'
+import { connect } from 'react-redux'
 import uniqid from 'uniqid'
 
 import * as actions from '../../redux/actions'
@@ -10,7 +11,6 @@ import PaginationList from '../UI/Pagination/Pagination'
 
 interface ArcticlePage {
   state: RootState
-  // eslint-disable-next-line prettier/prettier
   switchPage: (offset: number) => void
 }
 

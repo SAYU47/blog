@@ -8,17 +8,9 @@ import { ArticleList } from '../../responese-type'
 
 import style from './ArticleCard.module.scss'
 
-const ArticleCard: FC<ArticleList> = ({
-  title,
-  description,
-  tagList,
-  author,
-  updatedAt,
-  slug,
-}) => {
+const ArticleCard: FC<ArticleList> = ({ title, description, tagList, author, updatedAt, slug }) => {
   const formatedDate = format(new Date(updatedAt), 'MMM d,yyyy')
-  const formatedTitle =
-    title.length > 50 ? title.slice(0, 50).concat('...') : title
+  const formatedTitle = title.length > 50 ? title.slice(0, 50).concat('...') : title
   const defaultImg = '../../assets/img/Standart.svg'
   const [ErrorImg, setErrorImg] = useState(false)
   // eslint-disable-next-line consistent-return, array-callback-return
@@ -47,10 +39,7 @@ const ArticleCard: FC<ArticleList> = ({
           <p>{author.username}</p>
           <p className={style.autor_info_date}>{formatedDate}</p>
         </div>
-        <img
-          src={ErrorImg ? defaultImg : author.image}
-          onError={() => setErrorImg(true)}
-        />
+        <img src={ErrorImg ? defaultImg : author.image} onError={() => setErrorImg(true)} />
       </section>
     </div>
   )
