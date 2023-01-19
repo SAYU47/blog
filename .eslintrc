@@ -14,6 +14,7 @@
     "plugin:import/errors",
     "plugin:import/warnings"
   ],
+  "root": true,
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "requireConfigFile": false,
@@ -47,13 +48,13 @@
     "linebreak-style": [0, "unix"],
     "quotes": ["error", "single", { "avoidEscape": true }],
     "no-nested-ternary": "off",
-    "multiline-ternary": ["error", "always-multiline"],
+    "multiline-ternary": ["error","never"],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": 0,
     "import/extensions": "off",
     "default-param-last": "off",
     "import/no-unresolved": [2, { "caseSensitive": false }],
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx", "ts"] }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", "tsx", "ts"] }],
     "import/order": [
       2,
       {

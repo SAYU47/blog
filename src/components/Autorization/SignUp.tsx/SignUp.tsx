@@ -7,24 +7,24 @@ import './SignUp.scss'
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
-    sm: { span: 8 },
+    sm: { span: 8 }
   },
   wrapperCol: {
     xs: { span: 24 },
-    sm: { span: 16 },
-  },
+    sm: { span: 16 }
+  }
 }
 const tailFormItemLayout = {
   wrapperCol: {
     xs: {
       span: 24,
-      offset: 0,
+      offset: 0
     },
     sm: {
       span: 16,
-      offset: 8,
-    },
-  },
+      offset: 8
+    }
+  }
 }
 
 const SignUp: React.FC = () => {
@@ -44,16 +44,18 @@ const SignUp: React.FC = () => {
         onFinish={onFinish}
         initialValues={{
           residence: ['zhejiang', 'hangzhou', 'xihu'],
-          prefix: '86',
+          prefix: '86'
         }}
         scrollToFirstError
       >
         <Form.Item
           className="form_item"
           name="Username"
-          label="Nickname"
+          label="Username"
           tooltip="What do you want others to call you?"
-          rules={[{ required: true, message: 'Please input your nickname!', whitespace: true }]}
+          rules={[
+            { required: true, min: 3, max: 20, message: 'Никнейм должен быть от 3 до 20 символов', whitespace: true }
+          ]}
         >
           <Input placeholder="Username" />
         </Form.Item>
@@ -63,24 +65,27 @@ const SignUp: React.FC = () => {
           rules={[
             {
               type: 'email',
-              message: 'The input is not valid E-mail!',
+              message: 'The input is not valid E-mail!'
             },
             {
               required: true,
-              message: 'Please input your E-mail!',
-            },
+              message: 'Please input your E-mail!'
+            }
           ]}
         >
           <Input placeholder="Email address" />
         </Form.Item>
         <Form.Item
+          style={{ whiteSpace: 'nowrap' }}
           name="password"
           label="Password"
           rules={[
             {
               required: true,
-              message: 'Please input your password!',
-            },
+              message: 'Your password needs to be at least 6 characters.',
+              min: 6,
+              max: 40
+            }
           ]}
           hasFeedback
         >
@@ -88,6 +93,7 @@ const SignUp: React.FC = () => {
         </Form.Item>
 
         <Form.Item
+          style={{ whiteSpace: 'nowrap' }}
           name="Repeat Password"
           label="Repeat Password"
           dependencies={['password']}
@@ -95,7 +101,7 @@ const SignUp: React.FC = () => {
           rules={[
             {
               required: true,
-              message: 'Please confirm your password!',
+              message: 'Please confirm your password!'
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
@@ -103,8 +109,8 @@ const SignUp: React.FC = () => {
                   return Promise.resolve()
                 }
                 return Promise.reject(new Error('The two passwords that you entered do not match!'))
-              },
-            }),
+              }
+            })
           ]}
         >
           <Input.Password placeholder="Password" />
@@ -115,8 +121,8 @@ const SignUp: React.FC = () => {
           rules={[
             {
               validator: (_, value) =>
-                value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement')),
-            },
+                value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement'))
+            }
           ]}
           {...tailFormItemLayout}
         >

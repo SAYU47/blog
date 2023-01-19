@@ -6,7 +6,7 @@ const initialState: ArticleState = {
   errors: false,
   loading: false,
   offset: 0,
-  totalPages: 0,
+  totalPages: 0
 }
 
 const getArticleReduser = (state = initialState, action: GetCombinateTypes): ArticleState => {
@@ -17,7 +17,7 @@ const getArticleReduser = (state = initialState, action: GetCombinateTypes): Art
         articleList: [...action.payload],
         loading: false,
         errors: false,
-        totalPages: action.totalPages,
+        totalPages: action.totalPages
       }
     }
     case GetActionTypes.ERROR_LOAD: {
@@ -27,7 +27,7 @@ const getArticleReduser = (state = initialState, action: GetCombinateTypes): Art
       return {
         ...state,
         offset: action.offset,
-        loading: true,
+        loading: true
       }
     }
     case GetActionTypes.GET_SINGLEPAGE: {

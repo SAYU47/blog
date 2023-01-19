@@ -17,3 +17,56 @@
     }
   }
 }
+.user_wrapper {
+  display: flex;
+  align-items: center;
+  margin-right: 22px;
+  & a:last-child {
+    font-size: 18px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.75);
+    border: 1px solid rgba(0, 0, 0, 0.75);
+    border-radius: 5px;
+    padding: 6px 18px;
+  }
+}
+.autor_info_container {
+  display: flex;
+  align-items: center;
+  p {
+    font-size: 18px;
+    padding-right: 15px;
+    line-height: 28px;
+    color: rgba(0, 0, 0, 0.85);
+  }
+}
+.logout_btn {
+  border: none;
+  outline: none;
+  background-color: #ffffff;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  display: flex;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+  padding: 6px 18px;
+  margin-left: 27px;
+}
+.create_btn {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #52c41a;
+  border-radius: 5px;
+  color: #52c41a;
+  margin-right: 27px;
+}

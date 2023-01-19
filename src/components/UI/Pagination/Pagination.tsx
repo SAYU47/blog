@@ -28,6 +28,6 @@ const mapStatetoProps = (state: RootState) => {
   return { state }
 }
 const mapDispatchToProps = {
-  switchPage: paginationCount,
+  switchPage: paginationCount
 }
 export default connect(mapStatetoProps, mapDispatchToProps)(PaginationList)
