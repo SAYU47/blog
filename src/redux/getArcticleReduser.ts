@@ -31,7 +31,13 @@ const getArticleReduser = (state = initialState, action: GetCombinateTypes): Art
       }
     }
     case GetActionTypes.GET_SINGLEPAGE: {
-      return { ...state, markdownPage: action.payload }
+      return { ...state, markdownPage: action.payload, loading: true }
+    }
+    case GetActionTypes.UPDATE_ARTICLE: {
+      return { ...state, markdownPage: action.payload, loading: true }
+    }
+    case GetActionTypes.DELETE_ARTICLE: {
+      return { ...state, loading: true }
     }
     default:
       return state

@@ -1,63 +1,38 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { Button, Checkbox, Form, Input } from 'antd'
 
 import './SignUp.scss'
 
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 8 }
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 16 }
-  }
-}
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0
-    },
-    sm: {
-      span: 16,
-      offset: 8
-    }
-  }
-}
+import * as actions from '../../../redux/actions'
+import { RootState } from '../../../redux/root-reduser'
 
-const SignUp: React.FC = () => {
+const SignUp: React.FC = ({ state, registerIn }: any) => {
+  const history = useHistory()
   const [form] = Form.useForm()
+  const { isLoged } = state.AutorizationReduser
 
   const onFinish = (values: any) => {
-    console.log('Received values of form: ', values)
+    const postData: any = {
+      user: { username: values.username, email: values.email, password: values.password }
+    }
+    registerIn(postData)
   }
-
+  if (isLoged) history.goBack()
   return (
     <div className="form_wrapper">
       <h2>Create new account</h2>
-      <Form
-        {...formItemLayout}
-        form={form}
-        name="register"
-        onFinish={onFinish}
-        initialValues={{
-          residence: ['zhejiang', 'hangzhou', 'xihu'],
-          prefix: '86'
-        }}
-        scrollToFirstError
-      >
+      <Form form={form} name="register" onFinish={onFinish}>
         <Form.Item
-          className="form_item"
-          name="Username"
+          name="username"
           label="Username"
           tooltip="What do you want others to call you?"
           rules={[
             { required: true, min: 3, max: 20, message: 'Никнейм должен быть от 3 до 20 символов', whitespace: true }
           ]}
         >
-          <Input placeholder="Username" />
+          <Input placeholder="Username" style={{ width: '320px', height: '40px' }} />
         </Form.Item>
         <Form.Item
           name="email"
@@ -73,7 +48,7 @@ const SignUp: React.FC = () => {
             }
           ]}
         >
-          <Input placeholder="Email address" />
+          <Input placeholder="Email address" style={{ width: '320px', height: '40px' }} />
         </Form.Item>
         <Form.Item
           style={{ whiteSpace: 'nowrap' }}
@@ -124,17 +99,16 @@ const SignUp: React.FC = () => {
                 value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement'))
             }
           ]}
-          {...tailFormItemLayout}
         >
           <Checkbox>I agree to the processing of my personal information</Checkbox>
         </Form.Item>
-        <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">
+        <Form.Item>
+          <Button type="primary" htmlType="submit" className="create_btn">
             Create
           </Button>
         </Form.Item>
         <p className="link-redirect-signUp">
-          Already have an account?{' '}
+          Already have an account?
           <Link to="/sign-in" style={{ color: '#1890FF' }}>
             Sign In
           </Link>
@@ -144,5 +118,7 @@ const SignUp: React.FC = () => {
     </div>
   )
 }
-
-export default SignUp
+const mapStateToProps = (state: RootState) => {
+  return { state }
+}
+export default connect(mapStateToProps, actions)(SignUp)

@@ -14,8 +14,8 @@ const ArticleCard: FC<ArticleList> = ({ title, description, tagList, author, upd
   const defaultImg = '../../assets/img/Standart.svg'
   const [ErrorImg, setErrorImg] = useState(false)
   // eslint-disable-next-line consistent-return, array-callback-return
-  const tags = tagList.map((tag: string): any => {
-    if (tag.length < 20) {
+  const tagss = tagList.map((tag: string): any => {
+    if (tag !== null && tag.length < 20) {
       return (
         <div key={uniqid()} className={style.card_tag}>
           {tag}
@@ -31,7 +31,7 @@ const ArticleCard: FC<ArticleList> = ({ title, description, tagList, author, upd
             {formatedTitle}
           </Link>
         </h2>
-        {tags}
+        {tagss}
         <p className={style.article_text}>{description}</p>
       </section>
       <section className={style.autor_info}>

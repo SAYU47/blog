@@ -15,7 +15,6 @@ interface HeaderType {
 }
 
 const ArticleHeader: FC<HeaderType> = ({ setLoginIn, setLogOut }) => {
-  const hist = useHistory()
   const defaultImg = '../../assets/img/Standart.svg'
   const currentUser = useAppSelector((state) => state.AutorizationReduser.user)
   const isLogedIn = useAppSelector((state) => state.AutorizationReduser.isLoged)
@@ -23,7 +22,7 @@ const ArticleHeader: FC<HeaderType> = ({ setLoginIn, setLogOut }) => {
   useEffect(() => {
     setLoginIn()
   }, [])
-
+  const setImage = currentUser?.user.image ? currentUser?.user.image : defaultImg
   return (
     <>
       <header className={style.header_container}>
@@ -38,11 +37,13 @@ const ArticleHeader: FC<HeaderType> = ({ setLoginIn, setLogOut }) => {
             <div className={style.user_wrapper}>
               <section className={style.autor_info}>
                 <div className={style.autor_info_container}>
-                  <Link className={style.create_btn} to="/profile">
+                  <Link className={style.create_btn} to="/new-article">
                     Create article
                   </Link>
-                  <p>{currentUser?.user.username}</p>
-                  <img src={defaultImg} />
+                  <Link className={style.autor_link} to="/profile">
+                    <p>{currentUser?.user.username}</p>
+                    <img className={style.author_image} src={setImage} />
+                  </Link>
                 </div>
               </section>
               <button className={style.logout_btn} onClick={setLogOut}>

@@ -15,7 +15,7 @@ const PaginationList: FC<PaginationType> = ({ totalItems }) => {
   const dispatch = useDispatch()
   const [current, setCurrent] = useState(1)
   const onChange = (page: number) => {
-    dispatch({ type: GetActionTypes.PAGINATION, offset: page * 5 })
+    dispatch({ type: GetActionTypes.PAGINATION, offset: page * 5 - 5 })
     setCurrent(page)
   }
   return (

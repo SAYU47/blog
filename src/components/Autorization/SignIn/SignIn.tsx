@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Button, Form, Input } from 'antd'
-import { Link, Redirect, useHistory } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 
-import { RootState, useAppSelector } from '../../../redux/root-reduser'
+import { RootState } from '../../../redux/root-reduser'
 import * as actions from '../../../redux/actions'
 import { LoginRequestData } from '../../../redux/requestsType'
 
@@ -11,14 +11,11 @@ import './SignIn.scss'
 
 const SignIn: FC = ({ loginIn, state }: any) => {
   const history = useHistory()
-  const abs = state.AutorizationReduser.error
+  const errorInfo = state.AutorizationReduser.error
 
   const [isErorr, setIsError] = useState(false)
-
   const { isLoged } = state.AutorizationReduser
-  if (isLoged) {
-    history.push('/')
-  }
+
   const onFinish = (values: LoginRequestData) => {
     const postData: any = {
       user: { email: values.email, password: values.password }
@@ -26,12 +23,12 @@ const SignIn: FC = ({ loginIn, state }: any) => {
     loginIn(postData)
     setIsError(false)
   }
-
+  if (isLoged) history.goBack()
   useEffect(() => {
-    if (abs !== null) {
+    if (errorInfo !== null) {
       setIsError(true)
     }
-  }, [abs])
+  }, [errorInfo])
 
   const onFinishFailed = () => {
     setIsError(true)
@@ -40,15 +37,7 @@ const SignIn: FC = ({ loginIn, state }: any) => {
   return (
     <div className="login_wrapper">
       <h2>Sign In</h2>
-      <Form
-        name="basic"
-        labelCol={{ span: 0 }}
-        wrapperCol={{ span: 0 }}
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
+      <Form name="basic" onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off">
         {isErorr ? <p className="error-login">Autorization Erorr</p> : null}
         <Form.Item
           label="Email address"
@@ -64,7 +53,7 @@ const SignIn: FC = ({ loginIn, state }: any) => {
             }
           ]}
         >
-          <Input style={{ height: 40 }} placeholder="Email address" />
+          <Input style={{ height: 40, width: 320 }} placeholder="Email address" />
         </Form.Item>
 
         <Form.Item
@@ -76,12 +65,12 @@ const SignIn: FC = ({ loginIn, state }: any) => {
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 0, span: 0 }}>
-          <Button type="primary" htmlType="submit" style={{ marginTop: 21 }}>
+          <Button type="primary" htmlType="submit" className="login_btn">
             Login
           </Button>
         </Form.Item>
         <p className="link-redirect-signIn">
-          Don’t have an account?{' '}
+          Don’t have an account?
           <Link to="/sign-up" style={{ color: '#1890FF' }}>
             Sign Up
           </Link>
