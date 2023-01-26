@@ -7,8 +7,8 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 
-import { rootReduser } from './redux/root-reduser'
-import App from './components/App/App'
+import { rootReduser } from '@store/root-reduser'
+import App from '@components/App/App'
 
 const store = createStore(rootReduser, composeWithDevTools(applyMiddleware(thunk)))
 

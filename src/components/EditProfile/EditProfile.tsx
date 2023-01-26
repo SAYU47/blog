@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Form, Input } from 'antd'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { useEffect } from 'react'
 
-import { RootState, useAppSelector } from '../../redux/root-reduser'
-import * as actions from '../../redux/actions'
+import { RootState, useAppSelector } from '@store/root-reduser'
+import * as actions from '@store/actions'
 
 const EditProfile = ({ editProfile }: any) => {
   const history = useHistory()
@@ -16,9 +16,7 @@ const EditProfile = ({ editProfile }: any) => {
     editProfile(updateData)
     history.replace('/')
   }
-  const onFinishFailed = () => {
-    console.log('fail')
-  }
+
   return (
     <div className="login_wrapper">
       <h2>Edit Profile</h2>
@@ -28,7 +26,6 @@ const EditProfile = ({ editProfile }: any) => {
         wrapperCol={{ span: 0 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item

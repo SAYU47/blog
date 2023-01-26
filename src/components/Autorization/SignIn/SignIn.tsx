@@ -1,23 +1,25 @@
-import React, { FC, useEffect, useState } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable prettier/prettier */
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Button, Form, Input } from 'antd'
-import { Link, useHistory, useLocation } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
-import { RootState } from '../../../redux/root-reduser'
-import * as actions from '../../../redux/actions'
-import { LoginRequestData } from '../../../redux/requestsType'
+import { RootState } from '@store/root-reduser'
+import * as actions from '@store/actions'
+import { LoginRequestData } from 'requests-type'
 
 import './SignIn.scss'
 
-const SignIn: FC = ({ loginIn, state }: any) => {
+const SignIn = ({ loginIn, state }: any) => {
   const history = useHistory()
-  const errorInfo = state.AutorizationReduser.error
+  const errorInfo = state.AutorizationReduser.errors
 
   const [isErorr, setIsError] = useState(false)
   const { isLoged } = state.AutorizationReduser
-
+  const hasError = state.AutorizationReduser.errors
   const onFinish = (values: LoginRequestData) => {
-    const postData: any = {
+    const postData = {
       user: { email: values.email, password: values.password }
     }
     loginIn(postData)
@@ -38,7 +40,7 @@ const SignIn: FC = ({ loginIn, state }: any) => {
     <div className="login_wrapper">
       <h2>Sign In</h2>
       <Form name="basic" onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off">
-        {isErorr ? <p className="error-login">Autorization Erorr</p> : null}
+        {!hasError ? null : <p className="error-login">Autorization Erorr</p>}
         <Form.Item
           label="Email address"
           name="email"

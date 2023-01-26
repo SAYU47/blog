@@ -1,14 +1,14 @@
 /* eslint-disable prettier/prettier */
 import React, { FC, useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
-import { connect } from 'react-redux'
 import { format } from 'date-fns'
 import uniqid from 'uniqid'
 import { Button, Popconfirm, message } from 'antd'
-import { Link, Redirect, useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-import { RootState, useAppSelector } from '../../redux/root-reduser'
-import * as actions from '../../redux/actions'
+import { RootState } from '@store/root-reduser'
+import * as actions from '@store/actions'
 
 import style from './MarkdownPage.module.scss'
 
@@ -16,30 +16,36 @@ interface Markdown {
   state: RootState
   getSinglepage: (slug: string) => void
   deleteSinglepage: (slug: string) => void
+  likePost: (slug: string) => void
+  unLikePost: (slug: string) => void
   slug: string
 }
 
-const MarkdownPage: FC<Markdown> = ({ getSinglepage, deleteSinglepage, state, slug }) => {
+const MarkdownPage: FC<Markdown> = ({ likePost, unLikePost, getSinglepage, deleteSinglepage, state, slug }) => {
   const [ErrorImg, setErrorImg] = useState(false)
   const history = useHistory()
   const item = state.getArticleReduser.markdownPage
+  const load = state.getArticleReduser.loading
   const userName = state.AutorizationReduser.user?.user.username
   const authorName = state.getArticleReduser.markdownPage
-  const abs = () => {
-    return history.replace('/')
-  }
-  const confirm = () => {
-    deleteSinglepage(slug)
-    message.success('Click on Yes')
-    setTimeout(() => history.push('/'), 100)
-  }
-  // useEffect(() => {
-  //   return () => history.replace('/')
-  // }, [confirm])
+  const lsd = state.getArticleReduser.markdownPage
+  const addiction = state.getArticleReduser.like
   useEffect(() => {
     getSinglepage(slug)
-    // history.replace('/')
-  }, [slug])
+  }, [slug, addiction.favorited])
+
+  const confirm = () => {
+    deleteSinglepage(slug)
+    message.success('Успешно удалено')
+    actions.switchPage()
+  }
+
+  useEffect(() => {
+    if (load) {
+      actions.switchPage()
+      history.replace('/')
+    }
+  }, [load])
 
   if (item.length === 0) return null
   // eslint-disable-next-line array-callback-return, consistent-return, @typescript-eslint/no-explicit-any
@@ -54,10 +60,11 @@ const MarkdownPage: FC<Markdown> = ({ getSinglepage, deleteSinglepage, state, sl
   })
   const formatedDate = format(new Date(item.updatedAt), 'MMM d,yyyy')
   const defaultImg = '../../assets/img/Standart.svg'
-  const cancel = (e?: React.MouseEvent<HTMLElement>) => {
+  const cancel = () => {
     message.error('Click on No')
   }
-
+  const itemValidate = item.title.length > 150 ? item.title.slice(0, 150).concat('...') : item.title
+  const descriptionValidate = item.description.length > 500 ? item.description.slice(0, 500).concat('...') : item.title
   const buttonsGroup = (
     <div className={style.edit_btn_group}>
       <Popconfirm
@@ -80,7 +87,18 @@ const MarkdownPage: FC<Markdown> = ({ getSinglepage, deleteSinglepage, state, sl
     </div>
   )
   const showButtons = userName === authorName.author.username ? buttonsGroup : null
+  const unlike = '../../assets/img/unlike.svg'
+  const like = '../../assets/img/like.svg'
+  // type AppDispatch = ThunkDispatch<RootState, any, AnyAction>
+  // const dispatch: AppDispatch = useDispatch()
 
+  const onLike = () => {
+    if (!item.favorited) {
+      likePost(slug)
+    } else {
+      unLikePost(slug)
+    }
+  }
   return (
     <div className={style.wrapper}>
       <div className={style.autor_info}>
@@ -91,9 +109,15 @@ const MarkdownPage: FC<Markdown> = ({ getSinglepage, deleteSinglepage, state, sl
         <img src={ErrorImg ? defaultImg : item.author.image} onError={() => setErrorImg(true)} />
       </div>
       {showButtons}
-      <h2 className={style.title}>{item.title}</h2>
+      <div className={style.title}>
+        <h2>{itemValidate}</h2>
+        <div className={style.like_box}>
+          <img src={item.favorited ? like : unlike} onClick={onLike} />
+          <p className={style.like_count}>{item.favoritesCount}</p>
+        </div>
+      </div>
       <div className={style.tag}>{tags}</div>
-      <p className={style.description}>{item.description}</p>
+      <p className={style.description}>{descriptionValidate}</p>
       <ReactMarkdown className={style.markdown}>{item.body}</ReactMarkdown>
     </div>
   )

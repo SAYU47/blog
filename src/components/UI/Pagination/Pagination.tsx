@@ -3,9 +3,9 @@ import React, { FC, useEffect, useState } from 'react'
 import { Pagination } from 'antd'
 import { connect, useDispatch, useSelector } from 'react-redux'
 
-import { RootState } from '../../../redux/root-reduser'
-import { switchPage as paginationCount } from '../../../redux/actions'
-import { GetActionTypes } from '../../../redux/actions-type'
+import { RootState } from '@store/root-reduser'
+import { switchPage as paginationCount } from '@store/actions'
+import { GetActionTypes } from 'actions-type'
 import './Pagination.scss'
 
 interface PaginationType {

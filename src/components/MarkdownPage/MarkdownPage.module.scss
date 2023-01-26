@@ -68,6 +68,7 @@
 .title {
   max-width: 750px;
   margin-bottom: 5px;
+  word-break: break-word;
 }
 .description {
   max-width: 750px;
@@ -79,7 +80,8 @@
   color: rgba(0, 0, 0, 0.5);
 }
 .markdown {
-  word-break: break-all;
+  word-break: break-word;
+  // overflow-wrap: anywhere;
 }
 .edit_btn {
   display: inline-flex;
@@ -96,4 +98,29 @@
   position: absolute;
   right: 13px;
   top: 93px;
+}
+.title {
+  display: flex;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  gap: 13px;
+}
+.like_count {
+  display: inline;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 22px;
+
+  color: rgba(0, 0, 0, 0.75);
+}
+.like_box {
+  gap: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    cursor: pointer;
+  }
 }

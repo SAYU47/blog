@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable prettier/prettier */
 /* eslint-disable consistent-return */
 import React, { FC, useEffect } from 'react'
@@ -6,9 +7,9 @@ import uniqid from 'uniqid'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import { RootState, useAppSelector } from '../../redux/root-reduser'
-import * as actions from '../../redux/actions'
-import { ArticleRequestType } from '../../redux/requestsType'
+import { RootState, useAppSelector } from '@store/root-reduser'
+import * as actions from '@store/actions'
+import { ArticleRequestType } from 'requests-type'
 
 import style from './EditArticle.module.scss'
 
@@ -67,7 +68,7 @@ const EditArticle = (props: PropsType): any => {
           <Form.Item
             name="description"
             label="Short description"
-            rules={[{ required: true, message: 'Это поле обязательное' }]}
+            rules={[{ required: true, message: 'Это поле обязательное', whitespace: true }]}
             initialValue={editDescripton}
           >
             <Input placeholder="Short description" style={{ width: '874px', height: '40px' }} />
@@ -75,7 +76,7 @@ const EditArticle = (props: PropsType): any => {
           <Form.Item
             name="body"
             label="Text"
-            rules={[{ required: true, message: 'Это поле обязательное' }]}
+            rules={[{ required: true, message: 'Это поле обязательное', whitespace: true }]}
             initialValue={editBody}
           >
             <Input.TextArea placeholder="Text" className={style.text_aria} />
@@ -90,7 +91,7 @@ const EditArticle = (props: PropsType): any => {
                         <Form.Item
                           {...field}
                           className={style.add_tag_field}
-                          rules={[{ required: true, message: 'Введите тег или удалите это поле' }]}
+                          rules={[{ required: true, message: 'Введите тег или удалите это поле', whitespace: true }]}
                         >
                           <Input
                             placeholder="Tag"

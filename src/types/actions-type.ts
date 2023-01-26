@@ -1,22 +1,23 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ArticleList } from '../responese-type'
-
-import { ArticleRequestType, getResponseLogin } from './requestsType'
+import { ArticleList } from 'responese-type'
+import { ArticleRequestType, getResponseLogin } from 'requests-type'
 
 export interface ArticleState {
   articleList: ArticleList[]
-  // eslint-disable-next-line prettier/prettier
+  createdPage: any
   markdownPage: any
   errors: unknown
   loading: boolean
   offset: number
   totalPages: number
+  like: any
 }
 export interface AutorizationState {
-  user: getResponseLogin | null
+  user: getResponseLogin | null | undefined
   article: ArticleRequestType | null
   isLoged: boolean
-  error: Error | null
+  errors: boolean
 }
 // eslint-disable-next-line no-shadow
 export enum GetActionTypes {
@@ -31,7 +32,23 @@ export enum GetActionTypes {
   EDIT_PROFILE = 'EDIT_PROFILE',
   CREATE_ARTICLE = 'CREATE_ARTICLE',
   UPDATE_ARTICLE = 'UPDATE_ARTICLE',
-  DELETE_ARTICLE = 'DELETE_ARTICLE'
+  DELETE_ARTICLE = 'DELETE_ARTICLE',
+  LIKE_POST = 'LIKE_POST',
+  UNLIKE_POST = 'UNLIKE_POST',
+  ERROR = 'ERROR'
+}
+interface likePost {
+  type: GetActionTypes.LIKE_POST
+  payload: []
+}
+interface unLikePost {
+  type: GetActionTypes.UNLIKE_POST
+  payload: []
+}
+interface catchErrors {
+  errors: boolean
+  type: GetActionTypes.ERROR
+  // payload: null | Error
 }
 interface deleteArticle {
   type: GetActionTypes.DELETE_ARTICLE
@@ -44,6 +61,7 @@ interface updateArticle {
 interface createArticle {
   type: GetActionTypes.CREATE_ARTICLE
   payload: ArticleRequestType | null
+  loading: boolean
   error: any
 }
 interface setLogOut {
@@ -51,10 +69,10 @@ interface setLogOut {
   isLoged: boolean
 }
 interface editProfile {
+  errors: boolean
   type: GetActionTypes.EDIT_PROFILE
-  payload: getResponseLogin | null
+  payload?: getResponseLogin | null
   isLoged: boolean
-  error: any
 }
 interface setLoginIn {
   type: GetActionTypes.SET_LOGIN
@@ -106,3 +124,6 @@ export type GetCombinateTypes =
   | createArticle
   | updateArticle
   | deleteArticle
+  | catchErrors
+  | likePost
+  | unLikePost

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -5,13 +6,14 @@ import { Button, Checkbox, Form, Input } from 'antd'
 
 import './SignUp.scss'
 
-import * as actions from '../../../redux/actions'
-import { RootState } from '../../../redux/root-reduser'
+import * as actions from '@store/actions'
+import { RootState } from '@store/root-reduser'
 
 const SignUp: React.FC = ({ state, registerIn }: any) => {
   const history = useHistory()
   const [form] = Form.useForm()
   const { isLoged } = state.AutorizationReduser
+  const hasError = state.AutorizationReduser.errors
 
   const onFinish = (values: any) => {
     const postData: any = {
@@ -23,13 +25,20 @@ const SignUp: React.FC = ({ state, registerIn }: any) => {
   return (
     <div className="form_wrapper">
       <h2>Create new account</h2>
+      {hasError?.email ? <p style={{ color: 'red' }}>Email {hasError.email}</p> : null}
+      {hasError?.username ? <p style={{ color: 'red' }}>Username {hasError.username}</p> : null}
       <Form form={form} name="register" onFinish={onFinish}>
         <Form.Item
           name="username"
           label="Username"
           tooltip="What do you want others to call you?"
           rules={[
-            { required: true, min: 3, max: 20, message: 'Никнейм должен быть от 3 до 20 символов', whitespace: true }
+            {
+              required: true,
+              min: 3,
+              max: 20,
+              message: 'Никнейм должен быть от 3 до 20 символов'
+            }
           ]}
         >
           <Input placeholder="Username" style={{ width: '320px', height: '40px' }} />
@@ -118,6 +127,7 @@ const SignUp: React.FC = ({ state, registerIn }: any) => {
     </div>
   )
 }
+
 const mapStateToProps = (state: RootState) => {
   return { state }
 }

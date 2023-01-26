@@ -1,19 +1,19 @@
 /* eslint-disable prettier/prettier */
-import { ArticleState } from './redux/actions-type'
+import { ArticleState } from 'actions-type'
 
 export type State = {
   Arcticle: ArticleState[]
 }
 
 export type ArticleList = {
-  slug: string
+  slug?: string
   title: string
   description: string
-  body: string
+  body?: string
   tagList: [string]
-  createdAt: string
+  createdAt?: string
   updatedAt: string
-  favorited: boolean
+  favorited?: boolean
   favoritesCount: number
   author: {
     username: string
@@ -22,5 +22,5 @@ export type ArticleList = {
     following: boolean
   }
 
-  articlesCount: number
+  articlesCount?: number
 }

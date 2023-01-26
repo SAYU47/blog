@@ -1,17 +1,22 @@
-/* eslint-disable consistent-return */
-/* eslint-disable prettier/prettier */
-// eslint-disable-next-line import/no-extraneous-dependencies
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
-import { useHistory } from 'react-router-dom'
 import { Dispatch } from 'redux'
 
-import { GetActionTypes, GetCombinateTypes } from './actions-type'
-import { ArticleRequestType, LoginRequestData, RegisterRequestData, updateInfo } from './requestsType'
+import { GetActionTypes, GetCombinateTypes } from 'actions-type'
+import { ArticleRequestType, LoginRequestData, RegisterRequestData, updateInfo } from 'requests-type'
 
 export const switchPage = (num = 1) => {
   return async (dispatch: Dispatch<GetCombinateTypes>) => {
+    const token = localStorage.getItem('token')
     try {
-      const response = await axios.get(`https://blog.kata.academy/api/articles?limit=5&offset=${num}`)
+      const response = await axios({
+        url: `https://blog.kata.academy/api/articles?limit=5&offset=${num}`,
+        method: 'get',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json; charset=UTF-8'
+        }
+      })
       dispatch({
         type: GetActionTypes.SUCCESS_LOAD,
         payload: response.data.articles,
@@ -19,7 +24,6 @@ export const switchPage = (num = 1) => {
         loading: false,
         errors: false
       })
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.request) {
         dispatch({ type: GetActionTypes.ERROR_LOAD, payload: true })
@@ -30,7 +34,16 @@ export const switchPage = (num = 1) => {
 
 export const getSinglepage = (slug: string) => {
   return async (dispatch: Dispatch<GetCombinateTypes>) => {
-    const response = await axios.get(`https://blog.kata.academy/api/articles/${slug}`)
+    const token = localStorage.getItem('token')
+    const response = await axios({
+      url: `https://blog.kata.academy/api/articles/${slug}`,
+      method: 'get',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    })
+
     dispatch({
       type: GetActionTypes.GET_SINGLEPAGE,
       payload: response.data.article
@@ -120,9 +133,9 @@ export const loginIn = (data: LoginRequestData) => {
       })
     } catch (errors: any) {
       dispatch({
-        type: GetActionTypes.LOGIN_IN,
+        type: GetActionTypes.ERROR,
         isLoged: false,
-        error: errors.response.data.errors,
+        errors: errors.response.data.errors,
         payload: null
       })
     }
@@ -144,13 +157,13 @@ export const registerIn = (data: RegisterRequestData) => {
         type: GetActionTypes.REGISTERATION,
         payload: response.data,
         isLoged: true,
-        error: null
+        error: response.data.errors
       })
     } catch (errors: any) {
       dispatch({
-        type: GetActionTypes.REGISTERATION,
+        type: GetActionTypes.ERROR,
         isLoged: false,
-        error: errors.response.data.errors,
+        errors: errors.response.data.errors,
         payload: null
       })
     }
@@ -159,21 +172,28 @@ export const registerIn = (data: RegisterRequestData) => {
 export const editProfile = (data: updateInfo) => {
   return async (dispatch: Dispatch<GetCombinateTypes>) => {
     const token = localStorage.getItem('token')
-    const response = await axios({
-      method: 'put',
-      url: 'https://blog.kata.academy/api/user',
-      data: JSON.stringify(data),
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-    dispatch({
-      type: GetActionTypes.EDIT_PROFILE,
-      payload: response.data,
-      isLoged: true,
-      error: null
-    })
+    try {
+      const response = await axios({
+        method: 'put',
+        url: 'https://blog.kata.academy/api/user',
+        data: JSON.stringify(data),
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json; charset=UTF-8'
+        }
+      })
+      dispatch({
+        type: GetActionTypes.EDIT_PROFILE,
+        payload: response.data,
+        isLoged: true,
+        errors: false
+      })
+    } catch (error: any) {
+      dispatch({
+        type: GetActionTypes.ERROR,
+        errors: true
+      })
+    }
   }
 }
 export const createArticle = (data: ArticleRequestType) => {
@@ -192,7 +212,42 @@ export const createArticle = (data: ArticleRequestType) => {
     dispatch({
       type: GetActionTypes.CREATE_ARTICLE,
       payload: response.data,
-      error: null
+      error: null,
+      loading: true
+    })
+  }
+}
+export const likePost = (slug: string) => {
+  return async (dispatch: Dispatch<GetCombinateTypes>) => {
+    const token = localStorage.getItem('token')
+    const response = await axios({
+      method: 'post',
+      url: `https://blog.kata.academy/api/articles/${slug}/favorite`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    })
+    dispatch({
+      type: GetActionTypes.LIKE_POST,
+      payload: response.data.article
+    })
+  }
+}
+export const unLikePost = (slug: string) => {
+  return async (dispatch: Dispatch<GetCombinateTypes>) => {
+    const token = localStorage.getItem('token')
+    const response = await axios({
+      method: 'delete',
+      url: `https://blog.kata.academy/api/articles/${slug}/favorite`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    })
+    dispatch({
+      type: GetActionTypes.UNLIKE_POST,
+      payload: response.data.article
     })
   }
 }

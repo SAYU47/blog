@@ -3,11 +3,11 @@ import React, { FC, useEffect } from 'react'
 import { connect } from 'react-redux'
 import uniqid from 'uniqid'
 
-import * as actions from '../../redux/actions'
-import { RootState } from '../../redux/root-reduser'
-import ArticleCard from '../ArticleCard/ArticleCard'
-import Loader from '../UI/Loader/Loader'
-import PaginationList from '../UI/Pagination/Pagination'
+import * as actions from '@store/actions'
+import { RootState } from '@store/root-reduser'
+import ArticleCard from '@components/ArticleCard/ArticleCard'
+import Loader from '@components/UI/Loader/Loader'
+import PaginationList from '@components/UI/Pagination/Pagination'
 
 interface ArcticlePage {
   state: RootState
@@ -19,11 +19,10 @@ const ArticlesPage: FC<ArcticlePage> = ({ state, switchPage }) => {
   const totalItems = state.getArticleReduser.totalPages
   const loaderIndicate = state.getArticleReduser.loading
   const { offset } = state.getArticleReduser
-
+  const addiction = state.getArticleReduser.like
   useEffect(() => {
     switchPage(offset)
-  }, [offset])
-
+  }, [offset, addiction.slug, addiction.favorited])
   const articleList = arcticle.map((el) => {
     return (
       <li key={uniqid()}>
@@ -33,12 +32,9 @@ const ArticlesPage: FC<ArcticlePage> = ({ state, switchPage }) => {
           tagList={el.tagList}
           author={el.author}
           updatedAt={el.updatedAt}
+          favorited={el.favorited}
+          favoritesCount={el.favoritesCount}
           slug={el.slug}
-          body={''}
-          createdAt={''}
-          favorited={false}
-          favoritesCount={0}
-          articlesCount={0}
         />
       </li>
     )

@@ -1,11 +1,9 @@
-import React from 'react'
-
-import { AutorizationState, GetActionTypes, GetCombinateTypes } from './actions-type'
+import { AutorizationState, GetActionTypes, GetCombinateTypes } from 'actions-type'
 
 const initialState: AutorizationState = {
   user: null,
   isLoged: false,
-  error: null,
+  errors: false,
   article: null
 }
 
@@ -16,7 +14,7 @@ const AutorizationReduser = (state = initialState, action: GetCombinateTypes): A
         ...state,
         user: action.payload,
         isLoged: action.isLoged,
-        error: action.error
+        errors: false
       }
     }
     case GetActionTypes.REGISTERATION: {
@@ -24,7 +22,7 @@ const AutorizationReduser = (state = initialState, action: GetCombinateTypes): A
         ...state,
         user: action.payload,
         isLoged: action.isLoged,
-        error: action.error
+        errors: false
       }
     }
     case GetActionTypes.SET_LOGIN: {
@@ -35,7 +33,7 @@ const AutorizationReduser = (state = initialState, action: GetCombinateTypes): A
       }
     }
     case GetActionTypes.EDIT_PROFILE: {
-      return { ...state, user: action.payload, isLoged: action.isLoged, error: action.error }
+      return { ...state, user: action.payload, isLoged: action.isLoged, errors: action.errors }
     }
     case GetActionTypes.SET_LOGOUT: {
       return {
@@ -43,9 +41,10 @@ const AutorizationReduser = (state = initialState, action: GetCombinateTypes): A
         isLoged: action.isLoged
       }
     }
-    case GetActionTypes.CREATE_ARTICLE: {
-      return { ...state, article: action.payload }
+    case GetActionTypes.ERROR: {
+      return { ...state, errors: action.errors }
     }
+
     default:
       return state
   }

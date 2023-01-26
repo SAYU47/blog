@@ -1,20 +1,19 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 
-import { useAppSelector } from '../../redux/root-reduser'
-import ArticleHeader from '../ArticleHeader/ArticleHeader'
-import ArticlesPage from '../ArticlesPage/ArticlesPage'
-import MarkdownPage from '../MarkdownPage/MarkdownPage'
-import SignUp from '../Autorization/SignUp.tsx/SignUp'
-import SignIn from '../Autorization/SignIn/SignIn'
-import EditProfile from '../EditProfile/EditProfile'
-import CreateArticle from '../CreateArticle/CreateArticle'
-import EditArticle from '../EditArticle/EditArticle'
+import { useAppSelector } from '@store/root-reduser'
+import ArticleHeader from '@components/ArticleHeader/ArticleHeader'
+import ArticlesPage from '@components/ArticlesPage/ArticlesPage'
+import MarkdownPage from '@components/MarkdownPage/MarkdownPage'
+import SignUp from '@components/Autorization/SignUp.tsx/SignUp'
+import SignIn from '@components/Autorization/SignIn/SignIn'
+import EditProfile from '@components/EditProfile/EditProfile'
+import CreateArticle from '@components/CreateArticle/CreateArticle'
+import EditArticle from '@components/EditArticle/EditArticle'
 
 import './App.css'
 
 function App() {
-  // const history = useHistory()
   const user = useAppSelector((state) => state.AutorizationReduser.isLoged)
   return (
     <Router>

@@ -1,10 +1,10 @@
 /* eslint-disable prettier/prettier */
 import React, { FC, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Link, Redirect, useHistory, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-import * as actions from '../../redux/actions'
-import { RootState, useAppSelector } from '../../redux/root-reduser'
+import * as actions from '@store/actions'
+import { RootState, useAppSelector } from '@store/root-reduser'
 
 import style from './ArticleHeader.module.scss'
 
