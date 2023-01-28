@@ -1,56 +1,67 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from 'react'
-import uniqid from 'uniqid'
+/* eslint-disable prettier/prettier */
+/* eslint-disable consistent-return */
+import React, { FC, useEffect, useState } from 'react'
 import { Button, Form, Input } from 'antd'
+import uniqid from 'uniqid'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import * as actions from '@store/actions'
-import './andt.scss'
 import { RootState, useAppSelector } from '@store/root-reduser'
+import * as actions from '@store/actions'
+import { ArticleRequestType } from 'requests-type'
+
+import style from './EditArticle.module.scss'
 import Loader from '@components/UI/Loader/Loader'
 
-import style from './CreateArticle.module.scss'
-
-const CreateArticle: React.FC = ({ createArticle, switchPage }: any) => {
+interface PropsType {
+  updateSinglepage: (slug: string, postData: ArticleRequestType) => void
+  getSinglepage: (slug: string) => void
+  createArticle: (postData: ArticleRequestType) => void
+  slug: string
+}
+const EditArticle = (props: PropsType): any => {
   const [redirect, setRedirect] = useState(false)
-  const history = useHistory()
+  const { updateSinglepage } = props
+  const { getSinglepage } = props
+  const { createArticle } = props
+  const { slug } = props
+  const editTitle = useAppSelector((state) => state.getArticleReduser.markdownPage.title)
+  const editDescripton = useAppSelector((state) => state.getArticleReduser.markdownPage.description)
+  const editBody = useAppSelector((state) => state.getArticleReduser.markdownPage.body)
+  const editTags = useAppSelector((state) => state.getArticleReduser.markdownPage.tagList)
   const [form] = Form.useForm()
-  const load = useAppSelector((state) => state.getArticleReduser.loading)
+  const history = useHistory()
+
+  useEffect(() => {
+    return () => getSinglepage(slug)
+  }, [slug])
   const onFinish = (values: any) => {
-    const postData: any = {
+    const postData: ArticleRequestType = {
       article: { title: values.title, description: values.description, body: values.body, tagList: values.tagList }
     }
-    createArticle(postData)
-    setRedirect(true)
+    if (slug) {
+      updateSinglepage(slug, postData)
+    } else {
+      createArticle(postData)
+    }
   }
   useEffect(() => {
-    if (load) {
-      history.replace('/')
-      setRedirect(false)
-    }
-  }, [load])
+    setRedirect(false)
+    return () => history.replace('/')
+  }, [onFinish])
   const showLoader = redirect ? <Loader /> : null
   return (
     <>
       {showLoader || (
         <div className={style.form_wrapper}>
-          <h2>Create new article</h2>
-          <Form
-            className={style.form_inputs}
-            form={form}
-            name="register"
-            onFinish={onFinish}
-            initialValues={{
-              residence: ['zhejiang', 'hangzhou', 'xihu'],
-              prefix: '86'
-            }}
-            scrollToFirstError
-          >
+          <h2>{slug ? 'Edit article' : 'Create new article'}</h2>
+          <Form className={style.form_inputs} form={form} name="register" onFinish={onFinish} scrollToFirstError>
             <Form.Item
               name="title"
               label="Title"
-              rules={[{ required: true, whitespace: true, message: 'Это поле обязательное' }]}
+              rules={[{ required: true, message: 'Это поле обязательное', whitespace: true }]}
+              initialValue={slug ? editTitle : null}
             >
               <Input placeholder="Title" style={{ width: '874px', height: '40px' }} />
             </Form.Item>
@@ -58,6 +69,7 @@ const CreateArticle: React.FC = ({ createArticle, switchPage }: any) => {
               name="description"
               label="Short description"
               rules={[{ required: true, message: 'Это поле обязательное', whitespace: true }]}
+              initialValue={slug ? editDescripton : null}
             >
               <Input placeholder="Short description" style={{ width: '874px', height: '40px' }} />
             </Form.Item>
@@ -65,11 +77,12 @@ const CreateArticle: React.FC = ({ createArticle, switchPage }: any) => {
               name="body"
               label="Text"
               rules={[{ required: true, message: 'Это поле обязательное', whitespace: true }]}
+              initialValue={slug ? editBody : null}
             >
               <Input.TextArea placeholder="Text" className={style.text_aria} />
             </Form.Item>
             <div className={style.tags_form}>
-              <Form.List name={'tagList'}>
+              <Form.List name={'tagList'} initialValue={slug ? editTags : null}>
                 {(fields, { add, remove }) => (
                   <>
                     <div key={uniqid()} className={style.tags_form_wrapper}>
@@ -81,7 +94,6 @@ const CreateArticle: React.FC = ({ createArticle, switchPage }: any) => {
                             rules={[{ required: true, message: 'Введите тег или удалите это поле', whitespace: true }]}
                           >
                             <Input
-                              className={style.input}
                               placeholder="Tag"
                               style={{
                                 height: '40px',
@@ -115,7 +127,9 @@ const CreateArticle: React.FC = ({ createArticle, switchPage }: any) => {
     </>
   )
 }
+
 const mapStateToProps = (state: RootState) => {
   return { state }
 }
-export default connect(mapStateToProps, actions)(CreateArticle)
+
+export default connect(mapStateToProps, actions)(EditArticle)

@@ -8,8 +8,7 @@ import MarkdownPage from '@components/MarkdownPage/MarkdownPage'
 import SignUp from '@components/Autorization/SignUp.tsx/SignUp'
 import SignIn from '@components/Autorization/SignIn/SignIn'
 import EditProfile from '@components/EditProfile/EditProfile'
-import CreateArticle from '@components/CreateArticle/CreateArticle'
-import EditArticle from '@components/EditArticle/EditArticle'
+import EditArticle from '@components/EditAndCreateArticle/EditArticle'
 
 import './App.css'
 
@@ -41,7 +40,7 @@ function App() {
           <Route path="/sign-in" component={() => <SignIn />} />
           <Route path="/sign-up" render={() => <SignUp />} />
           {user ? <Route path="/profile" component={EditProfile} /> : <Redirect to="/sign-in" />}
-          {user ? <Route path="/new-article" exact component={CreateArticle} /> : <Redirect to="/sign-in" />}
+          {user ? <Route path="/new-article" exact component={EditArticle} /> : <Redirect to="/sign-in" />}
           <Redirect to="/" />
         </Switch>
       </div>
