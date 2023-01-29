@@ -91,9 +91,6 @@ const MarkdownPage: FC<Markdown> = ({ likePost, unLikePost, getSinglepage, delet
   const showButtons = userName === authorName.author.username ? buttonsGroup : null
   const unlike = '../../assets/img/unlike.svg'
   const like = '../../assets/img/like.svg'
-  // type AppDispatch = ThunkDispatch<RootState, any, AnyAction>
-  // const dispatch: AppDispatch = useDispatch()
-
   const onLike = () => {
     if (!item.favorited) {
       likePost(slug)

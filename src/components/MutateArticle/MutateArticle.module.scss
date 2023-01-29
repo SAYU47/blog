@@ -22,11 +22,10 @@
   margin: 0;
 }
 .text_aria {
-  max-width: 874px !important;
-  height: 168px !important;
+  min-height: 168px !important;
+  max-height: 550px;
   width: 874px !important;
-  overflow: hidden;
-  resize: none !important;
+  resize: none;
 }
 .delete_btn {
   display: flex;
