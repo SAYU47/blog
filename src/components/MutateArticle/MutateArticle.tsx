@@ -11,7 +11,7 @@ import { RootState, useAppSelector } from '@store/root-reduser'
 import * as actions from '@store/actions'
 import { ArticleRequestType } from 'requests-type'
 
-import style from './EditArticle.module.scss'
+import style from './MutateArticle.module.scss'
 import Loader from '@components/UI/Loader/Loader'
 
 interface PropsType {

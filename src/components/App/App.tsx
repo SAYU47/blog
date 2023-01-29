@@ -8,7 +8,7 @@ import MarkdownPage from '@components/MarkdownPage/MarkdownPage'
 import SignUp from '@components/Autorization/SignUp.tsx/SignUp'
 import SignIn from '@components/Autorization/SignIn/SignIn'
 import EditProfile from '@components/EditProfile/EditProfile'
-import EditArticle from '@components/EditAndCreateArticle/EditArticle'
+import MutateArticle from '@components/MutateArticle/MutateArticle'
 
 import './App.css'
 
@@ -34,13 +34,13 @@ function App() {
             path="/articles/:slug/edit"
             render={({ match }) => {
               const { slug } = match.params
-              return <EditArticle slug={slug} />
+              return <MutateArticle slug={slug} />
             }}
           />
           <Route path="/sign-in" component={() => <SignIn />} />
           <Route path="/sign-up" render={() => <SignUp />} />
           {user ? <Route path="/profile" component={EditProfile} /> : <Redirect to="/sign-in" />}
-          {user ? <Route path="/new-article" exact component={EditArticle} /> : <Redirect to="/sign-in" />}
+          {user ? <Route path="/new-article" exact component={MutateArticle} /> : <Redirect to="/sign-in" />}
           <Redirect to="/" />
         </Switch>
       </div>
