@@ -29,16 +29,18 @@ const ArticleCard: FC<ArticleList> = ({
   const formatedTitle = title.length > 50 ? title.slice(0, 50).concat('...') : title
 
   const [ErrorImg, setErrorImg] = useState(false)
-  const tagss = tagList.map((tag: string): any => {
-    if (tag !== null && tag.length < 20) {
-      return (
-        <div key={uniqid()} className={style.card_tag}>
-          {tag}
-        </div>
-      )
-    }
-  })
 
+  const formatedTags =
+    tagList !== null &&
+    tagList.map((tag: string): any => {
+      if (tag.length < 20) {
+        return (
+          <div key={uniqid()} className={style.card_tag}>
+            {tag}
+          </div>
+        )
+      }
+    })
   type AppDispatch = ThunkDispatch<RootState, any, AnyAction>
   const dispatch: AppDispatch = useDispatch()
 
@@ -65,7 +67,7 @@ const ArticleCard: FC<ArticleList> = ({
             <p className={style.like_count}>{favoritesCount}</p>
           </div>
         </div>
-        {tagss}
+        {formatedTags}
         <p className={style.article_text}>{description}</p>
       </section>
       <section className={style.autor_info}>

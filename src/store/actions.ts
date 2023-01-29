@@ -208,7 +208,6 @@ export const createArticle = (data: ArticleRequestType) => {
         'Content-type': 'application/json; charset=UTF-8'
       }
     })
-
     dispatch({
       type: GetActionTypes.CREATE_ARTICLE,
       payload: response.data,

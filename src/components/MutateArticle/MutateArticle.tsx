@@ -33,14 +33,11 @@ const EditArticle = (props: PropsType): any => {
   const [form] = Form.useForm()
   const history = useHistory()
 
-  useEffect(() => {
-    return () => getSinglepage(slug)
-  }, [slug])
   const onFinish = (values: any) => {
     const postData: ArticleRequestType = {
       article: { title: values.title, description: values.description, body: values.body, tagList: values.tagList }
     }
-    if (slug) {
+    if (slug !== undefined) {
       updateSinglepage(slug, postData)
     } else {
       createArticle(postData)

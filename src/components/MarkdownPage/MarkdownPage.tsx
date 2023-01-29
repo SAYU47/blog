@@ -48,16 +48,18 @@ const MarkdownPage: FC<Markdown> = ({ likePost, unLikePost, getSinglepage, delet
   }, [load])
 
   if (item.length === 0) return null
-  // eslint-disable-next-line array-callback-return, consistent-return, @typescript-eslint/no-explicit-any
-  const tags = item.tagList.map((tag: string): any => {
-    if (tag !== null && tag.length < 20) {
-      return (
-        <div key={uniqid()} className={style.card_tag}>
-          {tag}
-        </div>
-      )
-    }
-  })
+  const formatedTags =
+    item.tagList !== null &&
+    item.tagList.map((tag: string): any => {
+      if (tag.length < 20) {
+        return (
+          <div key={uniqid()} className={style.card_tag}>
+            {tag}
+          </div>
+        )
+      }
+      return null
+    })
   const formatedDate = format(new Date(item.updatedAt), 'MMM d,yyyy')
   const defaultImg = '../../assets/img/Standart.svg'
   const cancel = () => {
@@ -116,7 +118,7 @@ const MarkdownPage: FC<Markdown> = ({ likePost, unLikePost, getSinglepage, delet
           <p className={style.like_count}>{item.favoritesCount}</p>
         </div>
       </div>
-      <div className={style.tag}>{tags}</div>
+      <div className={style.tag}>{formatedTags}</div>
       <p className={style.description}>{descriptionValidate}</p>
       <ReactMarkdown className={style.markdown}>{item.body}</ReactMarkdown>
     </div>
