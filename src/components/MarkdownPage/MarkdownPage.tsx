@@ -51,7 +51,7 @@ const MarkdownPage: FC<Markdown> = ({ likePost, unLikePost, getSinglepage, delet
   const formatedTags =
     item.tagList !== null &&
     item.tagList.map((tag: string): any => {
-      if (tag.length < 20) {
+      if (tag !== null && tag.length < 20) {
         return (
           <div key={uniqid()} className={style.card_tag}>
             {tag}

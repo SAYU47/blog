@@ -29,11 +29,13 @@ const ArticleCard: FC<ArticleList> = ({
   const formatedTitle = title.length > 50 ? title.slice(0, 50).concat('...') : title
 
   const [ErrorImg, setErrorImg] = useState(false)
-
+  // if (tagList === null) {
+  //   return (tagList = [])
+  // }
   const formatedTags =
     tagList !== null &&
     tagList.map((tag: string): any => {
-      if (tag.length < 20) {
+      if (tag !== null && tag.length < 20) {
         return (
           <div key={uniqid()} className={style.card_tag}>
             {tag}
